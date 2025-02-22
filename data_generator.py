@@ -6,7 +6,8 @@ import random
 
 from dotenv import load_dotenv
 from faker import Faker
-from datetime import date, datetime
+from datetime import date
+from datetime import datetime, timezone
 
 load_dotenv()
 fake = Faker()
@@ -23,7 +24,7 @@ def print_lift_ticket():
     lift_ticket = {'txid': str(uuid.uuid4()),
                    'rfid': hex(random.getrandbits(96)),
                    'resort': fake.random_element(elements=resorts),
-                   'purchase_time': datetime.utcnow().isoformat(),
+                   'purchase_time': datetime.now(timezone.utc).isoformat(),
                    'expiration_time': date(2023, 6, 1).isoformat(),
                    'days': fake.random_int(min=1, max=7),
                    'name': fake.name(),
